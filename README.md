@@ -8,7 +8,6 @@
 5. Go to `http://localhost:3003/`
 6. Hit `Send Message`
 
-**Note**
-- :information_desk_person:
+**Note** (:information_desk_person:)
 - Check `public/index.html` to see the integration
 
