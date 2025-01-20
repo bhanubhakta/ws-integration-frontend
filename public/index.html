@@ -1,0 +1,62 @@
+<!-- public/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Example</title>
+</head>
+<body>
+  <h1>WebSocket Example</h1>
+  <button id="sendMessageBtn">Send Message</button>
+  <div id="messages"></div>
+  <script src="https://cdn.jsdelivr.net/npm/actioncable@5.2.8-1/lib/assets/compiled/action_cable.min.js"></script>
+  <script>
+    // Create a WebSocket connection to the server using Action Cable
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMWYxZWY2OC1mNWViLTQ0YWYtOGI5OC0wYzk0ZDgyZjQzMzEiLCJzdWIiOiI0Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNzM3MzYxNjQ5LCJleHAiOjE3MzczNjM0NDl9.yqjUPMqq0dGAOMZWTvTeBU26rNm_wSbaIWJJucSDuZI';
+    
+    // Create the consumer to manage WebSocket connections
+    const cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${token}`);
+    
+    // Subscribe to the ChatChannel
+    const chatChannel = cable.subscriptions.create('ChatChannel', {
+      connected() {
+        console.log('Connected to ChatChannel!');
+      },
+      
+      disconnected() {
+        console.log('Disconnected from ChatChannel');
+      },
+      
+      received(data) {
+        console.log('Received data:', data);
+        
+        // Display the received message on the page
+        const messageDiv = document.getElementById('messages');
+        const newMessage = document.createElement('p');
+        newMessage.textContent = `Server says: ${data.message.body}`;
+        messageDiv.appendChild(newMessage);
+      },
+      
+      // This is where we send the message to the server via Action Cable
+      sendMessage(messageParams) {
+        this.perform('send_message', { message: messageParams });
+      }
+    });
+  
+    // Handle sending the message when the button is clicked
+    document.getElementById('sendMessageBtn').onclick = function() {
+      const message = {
+          body: 'Hello from client!',
+          user_id: 4,
+          chat_id: 1
+      };
+      console.log('Sending message:', message);
+      
+      // Send the message through the Action Cable channel
+      chatChannel.sendMessage(message);
+    };
+  </script>  
+</body>
+</html>
