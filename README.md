@@ -9,6 +9,6 @@
 6. Hit `Send Message`
 
 **Note**
-:information_desk_person:
-Check `public/index.html` to see the integration
+- :information_desk_person:
+- Check `public/index.html` to see the integration
 
