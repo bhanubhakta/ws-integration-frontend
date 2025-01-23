@@ -3,6 +3,9 @@
     "@rails/actioncable": "^8.0.100",
     "actioncable": "^5.2.8-1",
     "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "jsonata": "^2.0.6",
+    "optimist": "^0.5.2",
     "ws": "^8.18.0"
   },
   "name": "simple-ws-frontend",

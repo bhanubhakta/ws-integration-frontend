@@ -15,10 +15,10 @@
   <script>
     // Create a WebSocket connection to the server using Action Cable
     // This token is logged in user token
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyMWYxZWY2OC1mNWViLTQ0YWYtOGI5OC0wYzk0ZDgyZjQzMzEiLCJzdWIiOiI0Iiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNzM3MzYxNjQ5LCJleHAiOjE3MzczNjM0NDl9.yqjUPMqq0dGAOMZWTvTeBU26rNm_wSbaIWJJucSDuZI';
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxNzQwNDViZC05Y2YxLTQwMTYtODhhZi1kZTkzMTAzYWM4MDgiLCJzdWIiOiIxIiwic2NwIjoidXNlciIsImF1ZCI6bnVsbCwiaWF0IjoxNzM3NjE0MDA3LCJleHAiOjE3Mzc2MTU4MDd9.57oJWb59rl3i6du3wrKIbOh4fvLCPhL-5E_XOyqOAiQ';
     
     // Create the consumer to manage WebSocket connections
-    const cable = ActionCable.createConsumer(`ws://localhost:3001/cable?token=${token}`);
+    const cable = ActionCable.createConsumer(`ws://localhost:3000/cable?token=${token}`);
     
     // Subscribe to the ChatChannel
     const chatChannel = cable.subscriptions.create('ChatChannel', {
@@ -50,8 +50,9 @@
     document.getElementById('sendMessageBtn').onclick = function() {
       const message = {
           body: 'Hello from client!',
-          user_id: 4,
-          chat_id: 1
+          user_id: 1,
+          chat_id: 1,
+          type: 'text'
       };
       console.log('Sending message:', message);
       
